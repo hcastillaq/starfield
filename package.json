@@ -2,16 +2,20 @@
   "name": "starfield-effect",
   "author": "Hernan Castilla",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "startfield effect with canvas",
-  "browser": "/dist/index.js",
-  "files": ["dist/**/*", "src/**/*"],
+  "keywords": ["startfield", "stars", "canvas"],
+  "main": "package/index.js",
+  "browser": "package/index.js",
+  "files": [
+    "package/**/*"
+  ],
   "scripts": {
-    "build":"tsc",
+    "dev": "vite dev",
     "prepare": "tsc"
   },
   "devDependencies": {
-    "@tsconfig/recommended": "^1.0.1",
-    "typescript": "^4.5.4"
+    "vite": "^2.9.14",
+    "typescript": "^4.7.4"
   }
 }

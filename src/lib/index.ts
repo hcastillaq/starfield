@@ -1,8 +1,22 @@
+/**
+ * returns random number btween two values
+ * @param  {number} min
+ * @param  {number} max
+ * @returns number
+ */
 const random = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-const scale = (
+/**
+ * @param  {number} value
+ * @param  {number} low1
+ * @param  {number} high1
+ * @param  {number} low2
+ * @param  {number} high2
+ * @returns number
+ */
+const map = (
   value: number,
   low1: number,
   high1: number,
@@ -12,6 +26,13 @@ const scale = (
   return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
 };
 
+/**
+ * @param  {number} x
+ * @param  {number} y
+ * @param  {number} dz
+ * @param  {number} speed
+ * @param  {number} maxSize
+ */
 class Particle {
   public x: number;
   public y: number;
@@ -35,6 +56,11 @@ class Particle {
     this.maxSize = maxSize;
   }
 
+  /**
+   * update particle position
+   * @param  {number} canvasW
+   * @param  {number} canvasH
+   */
   update(canvasW: number, canvasH: number) {
     this.dz -= this.speed;
     if (this.dz > 0) {
@@ -45,35 +71,48 @@ class Particle {
       this.y = random(-canvasH, canvasH);
       this.dz = random(0, canvasW);
     }
-    this.r = scale(this.dz, 0, canvasW, this.maxSize, 0);
+    this.r = map(this.dz, 0, canvasW, this.maxSize, 0);
   }
 }
 
-export interface StartFieldOptions {
+export interface StartFieldEffectOptions {
   parent: HTMLElement;
   numParticles: number;
   maxParticleSize?: number;
   speed?: number;
   background: string;
   particleColor: string;
+  fps?: number;
 }
 
-const starfield = (options: StartFieldOptions) => {
+/**
+ * @param  {StartFieldEffectOptions} options
+ * @returns void
+ */
+export const starfieldEffect = (options: StartFieldEffectOptions): void => {
   options.speed = options.speed || 1;
   options.maxParticleSize = options.maxParticleSize || 5;
-
-  if (typeof window === 'object') {
+  options.fps = options.fps || 30;
+  if (options.parent) {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     let particles: Particle[] = [];
 
-    const setCanvas = () => {
+    /**
+     * append canvas into parent and set size
+     * @returns void
+     */
+    const setCanvas = (): void => {
       canvas.width = options.parent.offsetWidth || 0;
       canvas.height = options.parent.offsetHeight || 0;
       options.parent?.appendChild(canvas);
     };
 
-    const createParticles = () => {
+    /**
+     * create particles and save into array
+     * @returns void
+     */
+    const createParticles = (): void => {
       for (let i = 0; i < options.numParticles; i++) {
         particles.push(
           new Particle(
@@ -87,7 +126,14 @@ const starfield = (options: StartFieldOptions) => {
       }
     };
 
-    const drawPartcile = (x: number, y: number, r: number) => {
+    /**
+     * draw particle to canvas
+     * @param  {number} x
+     * @param  {number} y
+     * @param  {number} r
+     * @returns void
+     */
+    const drawPartcile = (x: number, y: number, r: number): void => {
       if (context) {
         context.beginPath();
         context.arc(
@@ -100,13 +146,15 @@ const starfield = (options: StartFieldOptions) => {
         );
         context.fillStyle = options.particleColor;
         context.fill();
-        context.lineWidth = 0;
-        context.strokeStyle = options.particleColor;
         context.stroke();
       }
     };
 
-    const draw = () => {
+    /**
+     * main draw function
+     * @returns void
+     */
+    const draw = (): void => {
       if (context) {
         context.fillStyle = options.background;
         context.fillRect(0, 0, canvas.width, canvas.height);
@@ -115,19 +163,29 @@ const starfield = (options: StartFieldOptions) => {
           drawPartcile(particle.x, particle.y, particle.r);
           particle.update(canvas.width, canvas.height);
         });
-        window.requestAnimationFrame(draw);
+        setTimeout(() => {
+          window.requestAnimationFrame(draw);
+        }, 1000 / options.fps);
       }
     };
 
-    let wReizeId: number | undefined;
-    const wResize = () => {
+    let wReizeId: ReturnType<typeof setTimeout>;
+    /**
+     * runs when window resize, resize canvas and particles
+     * @returns void
+     */
+    const wResize = (): void => {
       particles = [];
       canvas.width = options.parent.offsetWidth;
       canvas.height = options.parent.offsetHeight;
       createParticles();
     };
 
-    window.onload = () => {
+    /**
+     * calls all necesary funtions for start animation
+     * @returns void
+     */
+    const init = (): void => {
       setCanvas();
       createParticles();
       window.addEventListener('resize', () => {
@@ -136,7 +194,7 @@ const starfield = (options: StartFieldOptions) => {
       });
       window.requestAnimationFrame(draw);
     };
+
+    init();
   }
 };
-
-export default starfield;
