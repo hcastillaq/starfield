@@ -49,7 +49,7 @@ class Particle {
   }
 }
 
-interface StartFieldOptions {
+export interface StartFieldOptions {
   parent: HTMLElement;
   numParticles: number;
   maxParticleSize?: number;
@@ -119,7 +119,7 @@ const starfield = (options: StartFieldOptions) => {
       }
     };
 
-    let wReizeId: number;
+    let wReizeId: number | undefined;
     const wResize = () => {
       particles = [];
       canvas.width = options.parent.offsetWidth;

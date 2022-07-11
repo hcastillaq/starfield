@@ -1,11 +1,11 @@
 {
-  "name": "starfield",
+  "name": "starfield-effect",
   "author": "Hernan Castilla",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "description": "startfield effect with canvas",
-  "main": "/dist/starfield.js",
-  "files": ["dist", "src"],
+  "browser": "/dist/index.js",
+  "files": ["dist/**/*", "src/**/*"],
   "scripts": {
     "build":"tsc",
     "prepare": "tsc"
