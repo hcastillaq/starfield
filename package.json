@@ -2,9 +2,13 @@
   "name": "starfield-effect",
   "author": "Hernan Castilla",
   "private": false,
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "startfield effect with canvas",
-  "keywords": ["startfield", "stars", "canvas"],
+  "keywords": [
+    "startfield",
+    "stars",
+    "canvas"
+  ],
   "main": "package/index.js",
   "browser": "package/index.js",
   "files": [
