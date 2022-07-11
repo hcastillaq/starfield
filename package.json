@@ -2,7 +2,7 @@
   "name": "starfield-effect",
   "author": "Hernan Castilla",
   "private": false,
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "startfield effect with canvas",
   "keywords": [
     "startfield",
@@ -14,6 +14,10 @@
   "files": [
     "package/**/*"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hcastillaq/starfield"
+  },
   "scripts": {
     "dev": "vite dev",
     "prepare": "tsc"

@@ -19,7 +19,7 @@ if (container) {
     particleColor: 'white',
     maxParticleSize: 3, //optional
     fps: 60, //optional
-    speed: 1, //optional,
+    speed: 1, //optional
   };
   starfieldEffect(options);
 }
