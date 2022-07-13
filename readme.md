@@ -10,7 +10,11 @@ yarn add starfield-effect
 
 [https://codepen.io/hcastillaq/pen/gOewNOr](https://codepen.io/hcastillaq/pen/gOewNOr)
 
+<img src="https://raw.githubusercontent.com/hcastillaq/starfield/master/images/starfield.png" width="600" height="400" />
 
+
+
+<br />
 
 ### usage
 
