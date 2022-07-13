@@ -67,7 +67,7 @@ const Stars: FC = () => {
       speed: 5, //optional
     };
     starfieldEffect(options);
-  });
+  },[]);
   return <StarsContainer ref={container} />;
 };
 
