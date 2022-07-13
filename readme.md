@@ -29,7 +29,7 @@ if (container) {
 ### usage with nextjs
 
 ```
-// Stars.tsx
+// components/Stars
 
 import { createRef, FC, useEffect } from 'react';
 import { starfieldEffect } from 'starfield-effect';
@@ -64,12 +64,12 @@ const Stars: FC = () => {
 export default Stars;
 
 
-// index.tsx
+// pages/index.tsx
 
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
-const Stars = dynamic(() => import('./../components/shared/Stars'), {
+const Stars = dynamic(() => import('./../components/Stars'), {
   ssr: false,
 });
 

@@ -14,11 +14,3 @@ if (container) {
   };
   starfieldEffect(options);
 }
-
-const Home: NextPage = () => {
-  return (
-    <>
-      <Stars />
-    </>
-  );
-};
