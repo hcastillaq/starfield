@@ -9,7 +9,6 @@
     "stars",
     "canvas"
   ],
-  "main": "package/index.js",
   "browser": "package/index.js",
   "files": [
     "package/**/*"

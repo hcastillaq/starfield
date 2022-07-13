@@ -6,6 +6,12 @@ yarn add starfield-effect
 
 ```
 
+### preview
+
+[https://codepen.io/hcastillaq/pen/gOewNOr](https://codepen.io/hcastillaq/pen/gOewNOr)
+
+
+
 ### usage
 
 ```
