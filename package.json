@@ -3,7 +3,7 @@
   "author": "Hernan Castilla",
   "private": false,
   "version": "0.0.7",
-  "description": "startfield effect with canvas",
+  "description": "Library to simulate starfield using only canvas to reduce resource usage.",
   "keywords": [
     "startfield",
     "stars",
