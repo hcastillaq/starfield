@@ -2,7 +2,7 @@
   "name": "starfield-effect",
   "author": "Hernan Castilla",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Library to simulate starfield using only canvas to reduce resource usage.",
   "keywords": [
     "startfield",
