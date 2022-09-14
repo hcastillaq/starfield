@@ -2,7 +2,7 @@
   "name": "starfield-effect",
   "author": "Hernan Castilla",
   "private": false,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Library to simulate starfield using only canvas to reduce resource usage.",
   "keywords": [
     "startfield",
@@ -10,6 +10,8 @@
     "canvas"
   ],
   "browser": "package/index.js",
+  "node": "package/index.js",
+  "main": "package/index.js",
   "files": [
     "package/**/*"
   ],

@@ -4,7 +4,8 @@
     "module": "ES2015",
     "sourceMap": true,
     "declaration": true,
-    "outDir": "package"
+    "outDir": "package",
+    "moduleResolution": "node"
   },
   "include": ["src/lib/**/*"],
   "exclude": ["node_modules"]

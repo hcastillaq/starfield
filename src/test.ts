@@ -1,5 +1,4 @@
-import { starfieldEffect } from './lib/index';
-
+import { starfieldEffect } from 'starfield-effect';
 const container = document.getElementById('app');
 
 if (container) {
