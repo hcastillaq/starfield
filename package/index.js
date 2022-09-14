@@ -26,13 +26,14 @@ const map = (value, low1, high1, low2, high2) => {
  * @param  {number} maxSize
  */
 class Particle {
-    constructor(x, y, dz, speed, maxSize) {
+    constructor(x, y, dz, speed, maxSize, shadowColor = 'white') {
         this.x = x;
         this.y = y;
         this.dz = dz;
         this.r = 1;
         this.speed = speed;
         this.maxSize = maxSize;
+        this.shadowColor = shadowColor;
     }
     /**
      * update particle position
@@ -61,6 +62,11 @@ export const starfieldEffect = (options) => {
     options.speed = options.speed || 1;
     options.maxParticleSize = options.maxParticleSize || 5;
     options.fps = options.fps || 30;
+    options.shadowColors = options.shadowColors || [
+        '#3969ae',
+        '#67abe4',
+        '#e5914f',
+    ];
     if (options.parent) {
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
@@ -81,7 +87,7 @@ export const starfieldEffect = (options) => {
          */
         const createParticles = () => {
             for (let i = 0; i < options.numParticles; i++) {
-                particles.push(new Particle(random(-canvas.width, canvas.width), random(-canvas.height, canvas.height), random(0, canvas.width), options.speed || 1, options.maxParticleSize || 5));
+                particles.push(new Particle(random(-canvas.width, canvas.width), random(-canvas.height, canvas.height), random(0, canvas.width), options.speed || 1, options.maxParticleSize || 5, options.shadowColors[random(0, options.shadowColors.length - 1)]));
             }
         };
         /**
@@ -91,10 +97,14 @@ export const starfieldEffect = (options) => {
          * @param  {number} r
          * @returns void
          */
-        const drawPartcile = (x, y, r) => {
+        const drawPartcile = (x, y, r, shadowColor) => {
             if (context) {
                 context.beginPath();
                 context.arc(canvas.width / 2 - x, canvas.height / 2 - y, r, 0, 2 * Math.PI, false);
+                if (options.shadow) {
+                    context.shadowBlur = random(0, 10);
+                    context.shadowColor = shadowColor;
+                }
                 context.fillStyle = options.particleColor;
                 context.fill();
                 context.stroke();
@@ -109,7 +119,7 @@ export const starfieldEffect = (options) => {
                 context.fillStyle = options.background;
                 context.fillRect(0, 0, canvas.width, canvas.height);
                 particles.forEach((particle) => {
-                    drawPartcile(particle.x, particle.y, particle.r);
+                    drawPartcile(particle.x, particle.y, particle.r, particle.shadowColor);
                     particle.update(canvas.width, canvas.height);
                 });
                 setTimeout(() => {

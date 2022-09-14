@@ -6,6 +6,8 @@ export interface StartFieldEffectOptions {
     background: string;
     particleColor: string;
     fps?: number;
+    shadow?: boolean;
+    shadowColors?: string[];
 }
 /**
  * @param  {StartFieldEffectOptions} options

@@ -12,8 +12,6 @@ yarn add starfield-effect
 
 <img src="https://raw.githubusercontent.com/hcastillaq/starfield/master/images/starfield.png" width="600" height="400" />
 
-
-
 <br />
 
 ### usage
@@ -30,6 +28,8 @@ if (container) {
     maxParticleSize: 3, //optional
     fps: 60, //optional
     speed: 1, //optional
+		shadow: true, //optional
+    shadowColors: ['#3969ae', '#67abe4', '#e5914f'], //optional
   };
   starfieldEffect(options);
 }
