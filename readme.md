@@ -30,6 +30,7 @@ if (container) {
     speed: 1, //optional
 		shadow: true, //optional
     shadowColors: ['#3969ae', '#67abe4', '#e5914f'], //optional
+		tips: 4, // default 4
   };
   starfieldEffect(options);
 }
@@ -65,6 +66,9 @@ const Stars: FC = () => {
       maxParticleSize: 3, //optional
       fps: 30, //optional
       speed: 5, //optional
+			shadow: true, //optional
+			shadowColors: ['#3969ae', '#67abe4', '#e5914f'], //optional
+			tips: 4, //default 4
     };
     starfieldEffect(options);
   },[]);

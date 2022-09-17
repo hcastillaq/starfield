@@ -92,7 +92,7 @@ export interface StartFieldEffectOptions {
   fps?: number;
   shadow?: boolean;
   shadowColors?: string[];
-  points?: number;
+  tips?: number;
 }
 
 /**
@@ -135,7 +135,7 @@ export const starfieldEffect = (options: StartFieldEffectOptions): void => {
             random(-canvas.width, canvas.width),
             random(-canvas.height, canvas.height),
             random(1, options.maxParticleSize),
-            options.points || 4,
+            options.tips || 4,
             random(0, canvas.width),
             options.speed || 1,
             options.maxParticleSize || 5,
