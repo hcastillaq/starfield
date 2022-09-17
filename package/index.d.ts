@@ -8,6 +8,7 @@ export interface StartFieldEffectOptions {
     fps?: number;
     shadow?: boolean;
     shadowColors?: string[];
+    tips?: number;
 }
 /**
  * @param  {StartFieldEffectOptions} options

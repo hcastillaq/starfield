@@ -5,7 +5,7 @@ const container = document.getElementById('app');
 if (container) {
   const options = {
     parent: container,
-    numParticles: 1000,
+    numParticles: 1200,
     background: '#13111f',
     particleColor: 'white',
     maxParticleSize: 8, //optional

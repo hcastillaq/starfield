@@ -25,7 +25,7 @@ if (container) {
     numParticles: 1000,
     background: 'black',
     particleColor: 'white',
-    maxParticleSize: 3, //optional
+    maxParticleSize: 8, //optional
     fps: 60, //optional
     speed: 1, //optional
 		shadow: true, //optional
@@ -63,7 +63,7 @@ const Stars: FC = () => {
       numParticles: 1000,
       background: 'black',
       particleColor: '#ffffff7d',
-      maxParticleSize: 3, //optional
+      maxParticleSize: 8, //optional
       fps: 30, //optional
       speed: 5, //optional
 			shadow: true, //optional
