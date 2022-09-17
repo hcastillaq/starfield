@@ -1,4 +1,5 @@
-import { starfieldEffect } from 'starfield-effect';
+import { starfieldEffect } from './lib/index';
+
 const container = document.getElementById('app');
 
 if (container) {
@@ -7,7 +8,7 @@ if (container) {
     numParticles: 1000,
     background: '#13111f',
     particleColor: 'white',
-    maxParticleSize: 3, //optional
+    maxParticleSize: 8, //optional
     fps: 60, //optional
     speed: 1, //optional,
     shadow: true, //optional

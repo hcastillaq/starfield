@@ -37,6 +37,7 @@ class Particle {
   public x: number;
   public y: number;
   public r: number;
+  public n: number;
   public dz: number;
   public speed: number;
   public maxSize: number;
@@ -45,6 +46,8 @@ class Particle {
   constructor(
     x: number,
     y: number,
+    r: number,
+    n: number,
     dz: number,
     speed: number,
     maxSize: number,
@@ -52,8 +55,9 @@ class Particle {
   ) {
     this.x = x;
     this.y = y;
+    this.r = r;
+    this.n = n;
     this.dz = dz;
-    this.r = 1;
     this.speed = speed;
     this.maxSize = maxSize;
     this.shadowColor = shadowColor;
@@ -88,6 +92,7 @@ export interface StartFieldEffectOptions {
   fps?: number;
   shadow?: boolean;
   shadowColors?: string[];
+  points?: number;
 }
 
 /**
@@ -103,6 +108,7 @@ export const starfieldEffect = (options: StartFieldEffectOptions): void => {
     '#67abe4',
     '#e5914f',
   ];
+
   if (options.parent) {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
@@ -128,6 +134,8 @@ export const starfieldEffect = (options: StartFieldEffectOptions): void => {
           new Particle(
             random(-canvas.width, canvas.width),
             random(-canvas.height, canvas.height),
+            random(1, options.maxParticleSize),
+            options.points || 4,
             random(0, canvas.width),
             options.speed || 1,
             options.maxParticleSize || 5,
@@ -137,37 +145,38 @@ export const starfieldEffect = (options: StartFieldEffectOptions): void => {
       }
     };
 
-    /**
-     * draw particle to canvas
-     * @param  {number} x
-     * @param  {number} y
-     * @param  {number} r
-     * @returns void
-     */
-    const drawPartcile = (
-      x: number,
-      y: number,
-      r: number,
-      shadowColor
-    ): void => {
-      if (context) {
-        context.beginPath();
-        context.arc(
-          canvas.width / 2 - x,
-          canvas.height / 2 - y,
-          r,
-          0,
-          2 * Math.PI,
-          false
-        );
-        if (options.shadow) {
-          context.shadowBlur = random(0, 10);
-          context.shadowColor = shadowColor;
-        }
-        context.fillStyle = options.particleColor;
-        context.fill();
-        context.stroke();
+    const drawParticle = (particle: Particle): void => {
+      const ctx = context;
+      const radius = particle.r;
+      const inset = 0.2;
+      const n = particle.n;
+      ctx.beginPath();
+
+      ctx.save();
+      ctx.translate(particle.x, particle.y);
+      ctx.moveTo(0, 0 - radius);
+      for (let i = 0; i < n; i++) {
+        ctx.rotate(Math.PI / n);
+        ctx.lineTo(0, 0 - radius * inset);
+        ctx.rotate(Math.PI / n);
+        ctx.lineTo(0, 0 - radius);
       }
+      if (options.shadow) {
+        context.shadowBlur = random(0, radius * 1.2);
+        context.shadowColor = particle.shadowColor;
+      }
+      ctx.fillStyle = options.particleColor;
+      ctx.stroke();
+      ctx.fill();
+      ctx.closePath();
+
+      ctx.restore();
+    };
+
+    const wAnimation = () => {
+      setTimeout(() => {
+        window.requestAnimationFrame(draw);
+      }, 1000 / options.fps);
     };
 
     /**
@@ -179,22 +188,18 @@ export const starfieldEffect = (options: StartFieldEffectOptions): void => {
         context.fillStyle = options.background;
         context.fillRect(0, 0, canvas.width, canvas.height);
 
+        context.save();
+        context.translate(canvas.width / 2, canvas.height / 2);
         particles.forEach((particle) => {
-          drawPartcile(
-            particle.x,
-            particle.y,
-            particle.r,
-            particle.shadowColor
-          );
+          drawParticle(particle);
           particle.update(canvas.width, canvas.height);
         });
-        setTimeout(() => {
-          window.requestAnimationFrame(draw);
-        }, 1000 / options.fps);
+        context.restore();
+        wAnimation();
       }
     };
 
-    let wReizeId: ReturnType<typeof setTimeout>;
+    let resizeId: ReturnType<typeof setTimeout>;
     /**
      * runs when window resize, resize canvas and particles
      * @returns void
@@ -206,17 +211,21 @@ export const starfieldEffect = (options: StartFieldEffectOptions): void => {
       createParticles();
     };
 
+    const resizeEvent = () => {
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeId);
+        resizeId = setTimeout(wResize, 100);
+      });
+    };
+
     /**
-     * calls all necesary funtions for start animation
+     * calls all necessary functions for start animation
      * @returns void
      */
     const init = (): void => {
       setCanvas();
       createParticles();
-      window.addEventListener('resize', () => {
-        clearTimeout(wReizeId);
-        wReizeId = setTimeout(wResize, 100);
-      });
+      resizeEvent();
       window.requestAnimationFrame(draw);
     };
 
